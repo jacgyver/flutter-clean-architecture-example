@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ enum StateManagementOptions {
   riverpod,
   getIt,
   mobX,
+  favqs,
 }
 
 late SharedPreferences sharedPref;
@@ -21,6 +23,8 @@ void main() async {
   sharedPref = await SharedPreferences.getInstance();
   await initializeGetIt();
   Animate.restartOnHotReload = true;
+
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 1));
 
   runApp(const ProviderScope(child: AppRoot()));
 }

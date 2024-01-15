@@ -68,7 +68,7 @@ class _AppRootState extends State<AppRoot> {
                   'Rick & Morty\n(${getTitleToOption(_currentOption)})',
                   style: tt.headlineLarge!.copyWith(
                     color: cs.onSurfaceVariant,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ).animate().fadeIn(delay: .8.seconds, duration: .7.seconds),
@@ -95,9 +95,7 @@ class _AppRootState extends State<AppRoot> {
                 ),
               ],
             ),
-            body: _getAppUsing(stateManagement: _currentOption)
-                .animate()
-                .fadeIn(delay: 1.2.seconds, duration: .7.seconds),
+            body: _getAppUsing(stateManagement: _currentOption).animate().fadeIn(delay: 1.2.seconds, duration: .7.seconds),
           );
         },
       ),
@@ -132,9 +130,7 @@ class _AppRootState extends State<AppRoot> {
     String text,
   ) {
     final isSelected = _currentOption == option;
-    final textTheme = Theme.of(context)
-        .textTheme
-        .apply(displayColor: Theme.of(context).colorScheme.onSurface);
+    final textTheme = Theme.of(context).textTheme.apply(displayColor: Theme.of(context).colorScheme.onSurface);
 
     return PopupMenuItem<StateManagementOptions>(
       value: option,
@@ -170,8 +166,7 @@ class _AppRootState extends State<AppRoot> {
   bool get useLightMode {
     switch (themeMode) {
       case ThemeMode.system:
-        return View.of(context).platformDispatcher.platformBrightness ==
-            Brightness.light;
+        return View.of(context).platformDispatcher.platformBrightness == Brightness.light;
       case ThemeMode.light:
         return true;
       case ThemeMode.dark:

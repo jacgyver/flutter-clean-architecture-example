@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rickmorty/layers/domain/entity/character.dart';
 
@@ -111,13 +111,15 @@ class _ItemPhoto extends StatelessWidget {
         height: 122,
         child: Hero(
           tag: item.id!,
-          child: CachedNetworkImage(
+          child: FastCachedImage(
             height: 122,
             width: 122,
-            imageUrl: item.image!,
             fit: BoxFit.cover,
-            errorWidget: (ctx, url, err) => const Icon(Icons.error),
-            placeholder: (ctx, url) => const Icon(Icons.image),
+            url: item.image!,
+            errorBuilder: (ctx, url, err) => const Icon(Icons.error),
+            loadingBuilder: (ctx, progress) {
+              return const Icon(Icons.image);
+            },
           ),
         ),
       ),

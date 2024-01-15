@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rickmorty/layers/domain/entity/character.dart';
@@ -65,8 +65,12 @@ class _Content extends ConsumerWidget {
         children: [
           Hero(
             tag: character.id!,
-            child: CachedNetworkImage(
-              imageUrl: character.image!,
+            child: FastCachedImage(
+              url: character.image!,
+              errorBuilder: (ctx, url, err) => const Icon(Icons.error),
+              loadingBuilder: (ctx, progress) {
+                return const Icon(Icons.image);
+              },
               fit: BoxFit.cover,
               height: 300,
             ),
@@ -89,9 +93,7 @@ class _Content extends ConsumerWidget {
                   Text(
                     'Status: ${character.isAlive ? 'ALIVE!' : 'DEAD!!'}',
                     style: textTheme.titleMedium!.copyWith(
-                      color: character.isAlive
-                          ? Colors.lightGreen
-                          : Colors.redAccent,
+                      color: character.isAlive ? Colors.lightGreen : Colors.redAccent,
                     ),
                   ),
                   const SizedBox(height: 8),
